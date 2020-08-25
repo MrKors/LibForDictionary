@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.test.dao.TranslationDAO;
 import ru.test.model.Translation;
+import ru.test.model.Word;
 
 import java.util.List;
 @Service
@@ -24,6 +25,12 @@ public class TranslationServiceImpl implements TranslationService{
 
     @Override
     @Transactional
+    public void updateTranslation(Translation translation) {
+        translationDAO.updateTranslation(translation);
+    }
+
+    @Override
+    @Transactional
     public void deleteTranslation(Translation translation) {
         translationDAO.deleteTranslation(translation);
     }
@@ -32,6 +39,12 @@ public class TranslationServiceImpl implements TranslationService{
     @Transactional
     public Translation findById(long id) {
         return translationDAO.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public Translation findByNameAndWord(String name, Word word) {
+        return translationDAO.findByNameAndWord(name, word);
     }
 
     @Override

@@ -3,10 +3,7 @@ package ru.test.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.test.model.Dictionary;
 import ru.test.model.Translation;
 import ru.test.model.Word;
@@ -73,7 +70,7 @@ public class WordController {
         return "add-word";
     }
 
-    @RequestMapping (value = "/words/addTranslation/{originValue}")
+    @RequestMapping (value = "/words/editTranslation/{originValue}")
     public String addEditTranslationPage (@PathVariable ("originValue") String originValue, Model model){
         Word word = wordService.findByKey(originValue);
         model.addAttribute("word", word);
@@ -97,6 +94,13 @@ public class WordController {
         translation1.setTranslation(newTranslation);
         translationService.updateTranslation(translation1);
         return "redirect:/words-list";
+    }
+
+    @RequestMapping (value = "/words/deleteTranslation")
+    public String deleteTranslation (@RequestParam ("trans") String trans, @RequestParam ("origin") String origin){
+        Translation translation = translationService.findByNameAndWord(trans,wordService.findByKey(origin));
+        translationService.deleteTranslation(translation);
+        return "/words-list";
     }
 
 }

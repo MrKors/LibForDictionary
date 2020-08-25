@@ -50,4 +50,5 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd"
     </bean>
     <tx:annotation-driven/>
     <mvc:annotation-driven/>
+    <mvc:resources mapping="/resources/**" location="resources/"/>
 </beans>

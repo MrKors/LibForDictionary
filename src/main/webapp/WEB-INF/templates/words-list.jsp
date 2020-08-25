@@ -6,6 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <title>Words list</title>
 </head>
@@ -19,7 +20,7 @@
         <tr>
             <th>Origin Value</th>
             <th>Translation</th>
-            <th>Add translation</th>
+            <th>Edit/Delete translation</th>
             <th>Dictionary</th>
             <th colspan="2">Actions</th>
         </tr>
@@ -32,7 +33,7 @@
                     </c:forEach>
                     </select>
                 </td>
-                <td><a href="/words/addTranslation/${word.originValue}">add translation</a></td>
+                <td><a href="/words/editTranslation/${word.originValue}">Edit/Delete</a></td>
                 <td>${word.dictionary.name}</td>
                 <td><a href="/words/edit/${word.originValue}">Edit</a> </td>
                 <td><a href="/words/delete/${word.originValue}">Delete</a> </td>
@@ -43,6 +44,9 @@
 
 <a href="<c:url value="/add-word"/>">Add word to dictionary</a>
 
+<form:form action="" method="post">
+
+</form:form>
 
 </body>
 </html>

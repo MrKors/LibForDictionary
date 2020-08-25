@@ -7,7 +7,7 @@
 <html>
 <head>
 
-    <title>Title</title>
+    <title>Words list</title>
 </head>
 <body>
 <a href="../../index.jsp">Back to index</a>
@@ -28,11 +28,11 @@
                 <td>${word.originValue}</td>
                 <td>
                     <select><c:forEach items="${word.translationList}" var="translation">
-                        <option>${translation.translation}"</option>
+                        <option>${translation.translation}</option>
                     </c:forEach>
                     </select>
                 </td>
-                <td><a href="/words/add/${word.originValue}/addTranslation">add translation</a></td>
+                <td><a href="/words/addTranslation/${word.originValue}">add translation</a></td>
                 <td>${word.dictionary.name}</td>
                 <td><a href="/words/edit/${word.originValue}">Edit</a> </td>
                 <td><a href="/words/delete/${word.originValue}">Delete</a> </td>

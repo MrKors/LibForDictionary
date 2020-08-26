@@ -11,6 +11,9 @@ import ru.test.service.DictionaryService;
 import ru.test.service.TranslationService;
 import ru.test.service.WordService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class WordController {
 
@@ -100,7 +103,18 @@ public class WordController {
     public String deleteTranslation (@RequestParam ("trans") String trans, @RequestParam ("origin") String origin){
         Translation translation = translationService.findByNameAndWord(trans,wordService.findByKey(origin));
         translationService.deleteTranslation(translation);
-        return "/words-list";
+        return "redirect:/words/editTranslation/"+origin;
     }
 
+    @RequestMapping (value = "/words/search", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> searchWord (@RequestParam("term") String searchStr){
+        List<Word> words = wordService.searchByKeyAndTranslation(searchStr,searchStr);
+        List<String> wordsList = new ArrayList<>();
+        for (Word word: words) {
+            wordsList.add(word.getOriginValue());
+        }
+        System.out.println(words);
+        return wordsList;
+    }
 }

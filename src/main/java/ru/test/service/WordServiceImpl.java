@@ -40,4 +40,10 @@ public class WordServiceImpl implements WordService{
     public List<Word> show() {
         return wordDAO.show();
     }
+
+    @Override
+    @Transactional
+    public List<Word> searchByKeyAndTranslation(String originValue, String translation) {
+        return wordDAO.searchByKeyAndTranslation(originValue, translation);
+    }
 }

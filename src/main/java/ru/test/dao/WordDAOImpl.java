@@ -34,7 +34,7 @@ public class WordDAOImpl implements WordDAO{
     @Override
     public void deleteByKey(String key) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Word WHERE originValue= :key");
+        Query query = session.createQuery("FROM Word WHERE originValue= :key");
         query.setParameter("key", key);
         Word word = (Word) query.uniqueResult();
         if (word!=null){
@@ -47,5 +47,16 @@ public class WordDAOImpl implements WordDAO{
         Session session = sessionFactory.getCurrentSession();
         List<Word> wordList = session.createQuery("FROM Word").list();
         return wordList;
+    }
+
+    @Override
+    public List<Word> searchByKeyAndTranslation(String originValue, String translation) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Word WHERE originValue like :originValue");
+//        or t.translation like :translation%
+        query.setParameter("originValue", "%" + originValue + "%");
+        System.out.println(query.list());
+//        query.setParameter("translation", translation);
+        return query.list();
     }
 }

@@ -13,4 +13,6 @@ public interface WordDAO {
     void deleteByKey (String key);
 
     List<Word> show();
+
+    List<Word> searchByKeyAndTranslation (String originValue, String translation);
 }

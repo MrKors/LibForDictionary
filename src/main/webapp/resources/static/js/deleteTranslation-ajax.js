@@ -1,22 +1,24 @@
 $(document).ready(function () {
-    alert("function ready")
     $('#deleteTranslationRef').click(function (event) {
-        alert("function ON")
         event.preventDefault();
         var origin = $("#origin-value").val();
         var trans = $("#chooseTranslation").val()
-        alert(origin + " " +  trans)
 
         $.ajax({
             url: "/words/deleteTranslation",
             method: 'get',
             data: {trans, origin},
+            // contentType: 'text/html',
             success: [function (data) {
-                write(data)
+                console.log(data)
+                $('body').html(data);
+            }],
+            error: [function () {
+                alert("Choose translation to delete it");
             }]
-        })
-    })
-})
+        });
+    });
+});
 
 
 

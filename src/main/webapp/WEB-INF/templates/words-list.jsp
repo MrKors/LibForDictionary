@@ -6,8 +6,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/resources/static/js/search-autocomplete.js"></script>
     <title>Words list</title>
 </head>
 <body>
@@ -42,7 +45,14 @@
     </table>
 </c:if>
 
-<a href="<c:url value="/add-word"/>">Add word to dictionary</a>
+<div>
+    <p><a href="<c:url value="/add-word"/>">Add</a> word to dictionary</p>
+</div>
+
+<div class="ui-autocomplete-category">
+    <label for="search">Search</label>
+    <input id="search" type="text"/>
+</div>
 
 <form:form action="" method="post">
 

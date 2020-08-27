@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.test.model.Criteria;
 import ru.test.model.Dictionary;
 import ru.test.model.Translation;
 import ru.test.model.Word;
@@ -37,11 +38,12 @@ public class WordController {
     }
 
     @RequestMapping (value = "/words-list",method = RequestMethod.GET)
-    public String wordsList (Model model){
+    public String wordsListPage (Model model){
         model.addAttribute("translate", new Translation());
         model.addAttribute("wordsList", wordService.show());
         model.addAttribute("translationList", translationService.showTranslations());
-    return "words-list";
+        model.addAttribute("dictionaryList", dictionaryService.showDictionaries());
+        return "words-list";
     }
 
     @RequestMapping (value = "/add-word",method = RequestMethod.GET)
@@ -106,10 +108,24 @@ public class WordController {
         return "redirect:/words/editTranslation/"+origin;
     }
 
+    @RequestMapping (value = "/words-list/filter")
+    public String filterDictionary (@RequestParam (value = "id") long id, Model model){
+        if (id == 0){
+            return "redirect:/words-list";
+        }
+        else {
+            model.addAttribute("translate", new Translation());
+            model.addAttribute("translationList", translationService.showTranslations());
+            model.addAttribute("dictionaryList", dictionaryService.showDictionaries());
+            model.addAttribute("wordsList",wordService.showWordsListByDictionary(id));
+            return "words-list";
+        }
+    }
+
     @RequestMapping (value = "/words/search", method = RequestMethod.GET)
     @ResponseBody
-    public List<String> searchWord (@RequestParam("term") String searchStr){
-        List<Word> words = wordService.searchByKeyAndTranslation(searchStr,searchStr);
+    public List<String> searchWord (@RequestParam("term") String searchStr/*, @RequestParam (value = "filterDictionary") long id*/){
+        List<Word> words = wordService.searchByKeyOrTranslation(searchStr);
         List<String> wordsList = new ArrayList<>();
         for (Word word: words) {
             wordsList.add(word.getOriginValue());
@@ -117,4 +133,17 @@ public class WordController {
         System.out.println(words);
         return wordsList;
     }
+
+    @RequestMapping (value = "/word-data", method = RequestMethod.POST)
+    public String wordData (@RequestParam ("originValue") String originValue){
+        return "redirect:/word-data/" + originValue;
+    }
+
+    @RequestMapping (value = "/word-data/{originValue}", method = RequestMethod.GET)
+    public String wordDataPage (@PathVariable ("originValue") String originValue, Model model){
+        model.addAttribute("word", wordService.findByKey(originValue));
+        return "word-data";
+    }
+
+
 }

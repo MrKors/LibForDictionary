@@ -45,18 +45,23 @@ public class WordDAOImpl implements WordDAO{
     @Override
     public List<Word> show() {
         Session session = sessionFactory.getCurrentSession();
-        List<Word> wordList = session.createQuery("FROM Word").list();
-        return wordList;
+        return (List<Word>) session.createQuery("FROM Word").list();
     }
 
     @Override
-    public List<Word> searchByKeyAndTranslation(String originValue, String translation) {
+    public List<Word> searchByKeyOrTranslation(String originValue) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Word WHERE originValue like :originValue");
-//        or t.translation like :translation%
+        Query query = session.createQuery("SELECT t.word FROM Translation t WHERE t.word.originValue like :originValue or t.translation like :originValue");
         query.setParameter("originValue", "%" + originValue + "%");
         System.out.println(query.list());
-//        query.setParameter("translation", translation);
+        return query.list();
+    }
+
+    @Override
+    public List<Word> showWordsListByDictionary(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Word WHERE dictionary.id = :id");
+        query.setParameter("id", id);
         return query.list();
     }
 }

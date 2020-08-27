@@ -11,52 +11,79 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/resources/static/js/search-autocomplete.js"></script>
+    <script src="/resources/static/js/filterWords-ajax.js"></script>
     <title>Words list</title>
 </head>
 <body>
-<a href="../../index.jsp">Back to index</a>
+<div>
+    <a href="../../index.jsp">Back to index</a>
+</div>
 
-<h1>Words list</h1>
+<div>
+    <h1>Words list</h1>
+</div>
 
-<c:if test="${!empty wordsList}">
-    <table border="1" cellspacing="1" cellpadding="2">
-        <tr>
-            <th>Origin Value</th>
-            <th>Translation</th>
-            <th>Edit/Delete translation</th>
-            <th>Dictionary</th>
-            <th colspan="2">Actions</th>
-        </tr>
-        <c:forEach items="${wordsList}" var="word">
+
+<div>
+    <form:form action="/word-data" method="post">
+        <div>
+            <select id="filterDictionary" name="filterDictionary">
+                <option disabled selected>Choose dictionary</option>
+                <c:forEach items="${dictionaryList}" var="dictionaryName">
+                    <option value="${dictionaryName.id}">${dictionaryName.name}</option>
+                </c:forEach>
+                <option value="0">All dictionaries</option>
+            </select>
+        </div>
+        <div>
+            <label for="search">Search</label>
+            <input id="search" name="originValue" type="text"/>
+            <input id="searchBtn" type="submit" value="show">
+        </div>
+    </form:form>
+</div>
+
+
+<div>
+    <c:if test="${!empty wordsList}">
+        <table border="1" cellspacing="1" cellpadding="2">
             <tr>
-                <td>${word.originValue}</td>
-                <td>
-                    <select><c:forEach items="${word.translationList}" var="translation">
-                        <option>${translation.translation}</option>
-                    </c:forEach>
-                    </select>
-                </td>
-                <td><a href="/words/editTranslation/${word.originValue}">Edit/Delete</a></td>
-                <td>${word.dictionary.name}</td>
-                <td><a href="/words/edit/${word.originValue}">Edit</a> </td>
-                <td><a href="/words/delete/${word.originValue}">Delete</a> </td>
+                <th>Origin Value</th>
+                <th>Translation</th>
+                <th>Edit/Delete translation</th>
+                <th>Dictionary</th>
+                <th colspan="2">Actions</th>
             </tr>
-        </c:forEach>
-    </table>
-</c:if>
+            <c:forEach items="${wordsList}" var="word">
+                <tr>
+                    <td>${word.originValue}</td>
+                    <td>
+                        <c:if test="${!empty word.translationList}">
+                            <select><c:forEach items="${word.translationList}" var="translation">
+                                <option>${translation.translation}</option>
+                            </c:forEach>
+                            </select>
+                        </c:if>
+                    </td>
+                    <td>
+                        <c:if test="${!empty word.translationList}">
+                            <a href="/words/editTranslation/${word.originValue}">Edit/Delete</a>
+                        </c:if>
+                    </td>
+                    <td>${word.dictionary.name}</td>
+                    <td><a href="/words/edit/${word.originValue}">Edit</a></td>
+                    <td><a href="/words/delete/${word.originValue}">Delete</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+</div>
 
 <div>
     <p><a href="<c:url value="/add-word"/>">Add</a> word to dictionary</p>
 </div>
 
-<div class="ui-autocomplete-category">
-    <label for="search">Search</label>
-    <input id="search" type="text"/>
-</div>
 
-<form:form action="" method="post">
-
-</form:form>
 
 </body>
 </html>

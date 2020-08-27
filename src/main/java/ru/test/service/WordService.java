@@ -14,5 +14,7 @@ public interface WordService {
 
     List<Word> show();
 
-    List<Word> searchByKeyAndTranslation (String originValue, String translation);
+    List<Word> searchByKeyOrTranslation(String originValue);
+
+    List<Word> showWordsListByDictionary (long id);
 }

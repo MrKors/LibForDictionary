@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.test.model.Criteria;
 import ru.test.model.Dictionary;
 import ru.test.model.Translation;
 import ru.test.model.Word;
@@ -12,6 +11,7 @@ import ru.test.service.DictionaryService;
 import ru.test.service.TranslationService;
 import ru.test.service.WordService;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class WordController {
         Dictionary dictionary = dictionaryService.findById(id);
 
         if (originValue.matches(dictionary.getConsistenceCriteria()) && originValue.length() <= dictionary.getLengthCriteria()) {
-            Word word = new Word(originValue, translationService.showTranslations(), dictionary);
+            Word word = new Word(originValue.toLowerCase(), translationService.showTranslations(), dictionary);
             wordService.addWord(word);
             translationService.addTranslation(new Translation(translation, wordService.findByKey(originValue)));
         }
@@ -68,11 +68,26 @@ public class WordController {
     }
 
     @RequestMapping (value = "/words/edit/{originValue}")
-    public String editWord (@PathVariable("originValue") String originValue, Model model){
+    public String editWordPage (@PathVariable("originValue") String originValue, Model model){
         model.addAttribute("word",wordService.findByKey(originValue));
-        model.addAttribute("wordsList",wordService.show());
+//        model.addAttribute("wordsList",wordService.show());
         model.addAttribute("dictionaryList", dictionaryService.showDictionaries());
-        return "add-word";
+        return "edit-word";
+    }
+
+    @RequestMapping (value = "/words/edit", method = RequestMethod.POST)
+    public String editWord (@RequestParam ("oldOriginValue")String originValue, @RequestParam ("newOriginValue") String newOriginValue, @RequestParam ("dictionary") long id){
+        Dictionary dictionary = dictionaryService.findById(id);
+        List<Translation> translationList = translationService.showTranslations();
+
+        if (originValue.matches(dictionary.getConsistenceCriteria()) && originValue.length() <= dictionary.getLengthCriteria()) {
+            Word word = new Word(originValue.toLowerCase(), translationList, dictionary);
+            word.setOriginValue(newOriginValue);
+
+            wordService.addWord(word);
+
+        }
+        return "redirect:/words-list";
     }
 
     @RequestMapping (value = "/words/editTranslation/{originValue}")
@@ -94,16 +109,17 @@ public class WordController {
     }
 
     @RequestMapping (value = "/words/editTranslation", method = RequestMethod.POST)
-    public String editTranslation (@RequestParam ("originValue")String originValue, @RequestParam ("oldTranslation")String oldTranslation, @RequestParam ("newTranslation")String newTranslation){
-        Translation translation1 = translationService.findByNameAndWord(oldTranslation, wordService.findByKey(originValue));
-        translation1.setTranslation(newTranslation);
-        translationService.updateTranslation(translation1);
+    public String editTranslation (@RequestParam ("oldTranslation") long id, @RequestParam ("newTranslation")String newTranslation){
+        Translation translation = translationService.findById(id);
+        translation.setTranslation(newTranslation);
+        translationService.updateTranslation(translation);
         return "redirect:/words-list";
     }
 
     @RequestMapping (value = "/words/deleteTranslation")
-    public String deleteTranslation (@RequestParam ("trans") String trans, @RequestParam ("origin") String origin){
-        Translation translation = translationService.findByNameAndWord(trans,wordService.findByKey(origin));
+    public String deleteTranslation (/*@RequestParam ("trans") String trans*/@RequestParam ("id") long id, @RequestParam ("origin") String origin){
+//        Translation translation = translationService.findByNameAndWord(oldTranslation, wordService.findByKey(originValue));
+        Translation translation = translationService.findById(id);
         translationService.deleteTranslation(translation);
         return "redirect:/words/editTranslation/"+origin;
     }
@@ -122,11 +138,18 @@ public class WordController {
         }
     }
 
-    @RequestMapping (value = "/words/search", method = RequestMethod.GET)
+    @RequestMapping (value = "/words/search/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public List<String> searchWord (@RequestParam("term") String searchStr/*, @RequestParam (value = "filterDictionary") long id*/){
-        List<Word> words = wordService.searchByKeyOrTranslation(searchStr);
+    public List<String> searchWord (@RequestParam("term") String searchStr, @PathVariable (value = "id") long id){
+        List<Word> words;
         List<String> wordsList = new ArrayList<>();
+
+        if (id == 0){
+            words = wordService.searchByKeyOrTranslation(searchStr);
+        }
+        else {
+            words = wordService.searchByKeyOrTranslationAndDictionaryID(searchStr, id);
+        }
         for (Word word: words) {
             wordsList.add(word.getOriginValue());
         }
@@ -140,7 +163,7 @@ public class WordController {
     }
 
     @RequestMapping (value = "/word-data/{originValue}", method = RequestMethod.GET)
-    public String wordDataPage (@PathVariable ("originValue") String originValue, Model model){
+    public String wordDataPage (@PathVariable ("originValue") @NotNull String originValue, Model model){
         model.addAttribute("word", wordService.findByKey(originValue));
         return "word-data";
     }

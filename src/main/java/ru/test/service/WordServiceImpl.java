@@ -41,10 +41,17 @@ public class WordServiceImpl implements WordService{
         return wordDAO.show();
     }
 
+
     @Override
     @Transactional
     public List<Word> searchByKeyOrTranslation(String originValue) {
         return wordDAO.searchByKeyOrTranslation(originValue);
+    }
+
+    @Override
+    @Transactional
+    public List<Word> searchByKeyOrTranslationAndDictionaryID(String originValue, long id) {
+        return wordDAO.searchByKeyOrTranslationAndDictionaryID(originValue, id);
     }
 
     @Override

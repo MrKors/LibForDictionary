@@ -8,8 +8,11 @@ $(document).ready(function () {
             method: 'post',
             data: {id},
             success: function (data) {
-                console.log(data)
-                $('body').html(data);
+                let parser = new DOMParser().parseFromString(data, "text/html")
+                console.log(parser)
+                let table = parser.getElementById('div-table')
+                console.log(table)
+                $('#div-table').html(table);
             }
         })
     })

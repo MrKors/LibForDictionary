@@ -1,6 +1,6 @@
 $(function (){
     $('#chooseTranslation').change(function (){
-        var trans = $('#chooseTranslation :selected').val();
+        let trans = $('#chooseTranslation :selected').text();
         document.getElementById('editTranslation').value = trans;
     })
 });

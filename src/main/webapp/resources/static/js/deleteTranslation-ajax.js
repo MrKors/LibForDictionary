@@ -1,13 +1,15 @@
 $(document).ready(function () {
     $('#deleteTranslationRef').click(function (event) {
         event.preventDefault();
+        var id = $('#chooseTranslation').val()
+        console.log(id)
         var origin = $("#origin-value").val();
-        var trans = $("#chooseTranslation").val()
+        // var trans = $("#chooseTranslation").val()
 
         $.ajax({
             url: "/words/deleteTranslation",
             method: 'get',
-            data: {trans, origin},
+            data: {id, origin},
             // contentType: 'text/html',
             success: [function (data) {
                 console.log(data)

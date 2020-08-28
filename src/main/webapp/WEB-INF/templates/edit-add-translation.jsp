@@ -27,7 +27,7 @@
             <td><label for="chooseTranslation">Choose translation</label></td>
             <td><select id="chooseTranslation" name="oldTranslation">
                 <c:forEach items="${word.translationList}" var="translation">
-                <option>${translation.translation}</option>
+                <option value="${translation.id}">${translation.translation}</option>
                     </c:forEach>
             </td>
             <td><a href="/words/deleteTranslation" id="deleteTranslationRef">Delete Translation</a></td>

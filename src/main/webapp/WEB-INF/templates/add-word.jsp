@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td><label for="translation">Translation</label></td>
-            <td><input id="translation" name="translation" type="text" value="${translate.translation}"/></td>
+            <td><input id="translation" name="translation" type="text" value=""/></td>
         </tr>
         <tr>
             <td><form:label path="dictionary"/>Dictionary</td>

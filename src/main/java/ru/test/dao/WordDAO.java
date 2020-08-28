@@ -16,5 +16,7 @@ public interface WordDAO {
 
     List<Word> searchByKeyOrTranslation(String originValue);
 
+    List<Word> searchByKeyOrTranslationAndDictionaryID(String originValue, long id);
+
     List<Word> showWordsListByDictionary (long id);
 }

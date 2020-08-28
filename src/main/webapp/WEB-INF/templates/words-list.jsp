@@ -44,7 +44,7 @@
 </div>
 
 
-<div>
+<div id="div-table">
     <c:if test="${!empty wordsList}">
         <table border="1" cellspacing="1" cellpadding="2">
             <tr>

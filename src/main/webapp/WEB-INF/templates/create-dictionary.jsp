@@ -11,19 +11,22 @@
 <body>
 <h1>Create dictionary</h1>
 
-<a href="../../index.jsp">Back to index</a>
+<a href="../../index.jsp">Back to main page</a>
 
 <form:form action="/dictionary/create" method="post" modelAttribute="dictionary">
     <form:label path="name">Dictionary name:</form:label>
     <form:input path="name"/>
+    <form:errors path="name"/> <br>
     <form:label path="consistenceCriteria">Type dictionary: </form:label>
     <form:select path="consistenceCriteria">
         <c:forEach items="${criteria.criteriaMap}" var="label">
             <form:option value="${label.value}" label="${label.key}"/>
         </c:forEach>
     </form:select>
+    <form:errors path="consistenceCriteria"/> <br>
     <form:label path="lengthCriteria">Words length: </form:label>
     <form:input path="lengthCriteria"/>
+    <form:errors path="lengthCriteria"/> <br>
     <input type="submit" name="add_Dictionary" value="Add dictionary"/>
 
 </form:form>

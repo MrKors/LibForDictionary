@@ -794,10 +794,10 @@ true posixrules
     <database id="3" parent="1" name="DictionaryDB">
       <ObjectId>16393</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1953</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2107</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|19009|19011|1
-sequence|table|19019|19021|1
+      <Relations>sequence|table|19045|19047|1
+sequence|table|19056|19058|1
 </Relations>
     </database>
     <database id="4" parent="1" name="postgres">
@@ -845,7 +845,7 @@ sequence|table|19019|19021|1
       <Comment>standard public schema</Comment>
       <StateNumber>352</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1954</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2108</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="14" parent="3" name="btree">
@@ -915,149 +915,157 @@ sequence|table|19019|19021|1
       <DataType>bigint|0s</DataType>
     </sequence>
     <sequence id="26" parent="13" name="dictionary_id_seq">
-      <ObjectId>19009</ObjectId>
+      <ObjectId>19045</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1776</StateNumber>
+      <StateNumber>2095</StateNumber>
       <DataType>bigint|0s</DataType>
     </sequence>
     <sequence id="27" parent="13" name="translation_id_seq">
-      <ObjectId>19019</ObjectId>
+      <ObjectId>19056</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1777</StateNumber>
+      <StateNumber>2096</StateNumber>
       <DataType>bigint|0s</DataType>
     </sequence>
     <table id="28" parent="13" name="dictionary">
-      <ObjectId>19011</ObjectId>
+      <ObjectId>19047</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1780</StateNumber>
+      <StateNumber>2099</StateNumber>
     </table>
     <table id="29" parent="13" name="translation">
-      <ObjectId>19021</ObjectId>
+      <ObjectId>19058</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1779</StateNumber>
+      <StateNumber>2098</StateNumber>
     </table>
     <table id="30" parent="13" name="word">
-      <ObjectId>19029</ObjectId>
+      <ObjectId>19066</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1780</StateNumber>
+      <StateNumber>2099</StateNumber>
     </table>
     <column id="31" parent="28" name="id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1776</StateNumber>
+      <StateNumber>2095</StateNumber>
       <TypeId>20</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
     <column id="32" parent="28" name="consistencecriteria">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
-      <StateNumber>1776</StateNumber>
+      <NotNull>1</NotNull>
+      <StateNumber>2095</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="33" parent="28" name="lengthcriteria">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1776</StateNumber>
+      <StateNumber>2095</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="34" parent="28" name="name">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
-      <StateNumber>1776</StateNumber>
+      <NotNull>1</NotNull>
+      <StateNumber>2095</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <index id="35" parent="28" name="dictionary_pkey">
-      <ObjectId>19017</ObjectId>
-      <StateNumber>1776</StateNumber>
+      <ObjectId>19054</ObjectId>
+      <StateNumber>2095</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
     <key id="36" parent="28" name="dictionary_pkey">
-      <ObjectId>19018</ObjectId>
-      <StateNumber>1776</StateNumber>
+      <ObjectId>19055</ObjectId>
+      <StateNumber>2095</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>dictionary_pkey</UnderlyingIndexName>
     </key>
-    <column id="37" parent="29" name="id">
+    <check id="37" parent="28" name="dictionary_lengthcriteria_check">
+      <ObjectId>19050</ObjectId>
+      <StateNumber>2095</StateNumber>
+      <ColNames>lengthcriteria</ColNames>
+      <Predicate>lengthcriteria &gt;= 2</Predicate>
+    </check>
+    <column id="38" parent="29" name="id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1777</StateNumber>
+      <StateNumber>2096</StateNumber>
       <TypeId>20</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="38" parent="29" name="translation">
+    <column id="39" parent="29" name="translation">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
-      <StateNumber>1777</StateNumber>
+      <StateNumber>2096</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="39" parent="29" name="word_originvalue">
+    <column id="40" parent="29" name="word_originvalue">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
-      <StateNumber>1777</StateNumber>
+      <StateNumber>2096</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="40" parent="29" name="translation_pkey">
-      <ObjectId>19027</ObjectId>
-      <StateNumber>1777</StateNumber>
+    <index id="41" parent="29" name="translation_pkey">
+      <ObjectId>19064</ObjectId>
+      <StateNumber>2096</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="41" parent="29" name="translation_pkey">
-      <ObjectId>19028</ObjectId>
-      <StateNumber>1777</StateNumber>
+    <key id="42" parent="29" name="translation_pkey">
+      <ObjectId>19065</ObjectId>
+      <StateNumber>2096</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>translation_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="42" parent="29" name="fk7iaplbb9se7r2oectctux140r">
-      <ObjectId>19034</ObjectId>
-      <StateNumber>1779</StateNumber>
+    <foreign-key id="43" parent="29" name="fk7iaplbb9se7r2oectctux140r">
+      <ObjectId>19071</ObjectId>
+      <StateNumber>2098</StateNumber>
       <ColNames>word_originvalue</ColNames>
-      <RefTableId>19029</RefTableId>
+      <RefTableId>19066</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>word</RefTableName>
       <RefKeyName>word_pkey</RefKeyName>
       <RefColNames>originvalue</RefColNames>
     </foreign-key>
-    <column id="43" parent="30" name="originvalue">
+    <column id="44" parent="30" name="originvalue">
       <Position>1</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>2097</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="44" parent="30" name="dictionary_id">
+    <column id="45" parent="30" name="dictionary_id">
       <Position>2</Position>
       <DataType>bigint|0s</DataType>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>2097</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <index id="45" parent="30" name="word_pkey">
-      <ObjectId>19032</ObjectId>
-      <StateNumber>1778</StateNumber>
+    <index id="46" parent="30" name="word_pkey">
+      <ObjectId>19069</ObjectId>
+      <StateNumber>2097</StateNumber>
       <ColNames>originvalue</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="46" parent="30" name="word_pkey">
-      <ObjectId>19033</ObjectId>
-      <StateNumber>1778</StateNumber>
+    <key id="47" parent="30" name="word_pkey">
+      <ObjectId>19070</ObjectId>
+      <StateNumber>2097</StateNumber>
       <ColNames>originvalue</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>word_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="47" parent="30" name="fkqisjnfpt2newwa08dd549043i">
-      <ObjectId>19039</ObjectId>
-      <StateNumber>1780</StateNumber>
+    <foreign-key id="48" parent="30" name="fkqisjnfpt2newwa08dd549043i">
+      <ObjectId>19076</ObjectId>
+      <StateNumber>2099</StateNumber>
       <ColNames>dictionary_id</ColNames>
-      <RefTableId>19011</RefTableId>
+      <RefTableId>19047</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>dictionary</RefTableName>
       <RefKeyName>dictionary_pkey</RefKeyName>

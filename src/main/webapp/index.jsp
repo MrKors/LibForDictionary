@@ -9,6 +9,5 @@
 <br/>
 <a href="<c:url value="/words-list"/>">Show words list</a>
 <a href="<c:url value="/create-dictionary"/>">Create dictionary</a>
-<%--<a href="<c:url value="/dictionary/create"/>" target="_blank">Create new dictionary</a>--%>
 </body>
 </html>

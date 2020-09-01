@@ -16,18 +16,24 @@
         <tr>
             <td><form:label path="originValue">Origin Value</form:label></td>
             <td><form:input path="originValue"/></td>
+            <td><form:errors path="originValue" cssClass="error"/> </td>
         </tr>
         <tr>
-            <td><label for="translation">Translation</label></td>
-            <td><input id="translation" name="translation" type="text" value=""/></td>
+            <td><form:label path="translation">Translation</form:label></td>
+            <td><form:input path="translation"/></td>
+            <td><form:errors path="translation" cssClass="error"/></td>
+<%--            <td><label for="translation">Translation</label></td>--%>
+<%--            <td><input id="translation" name="translation" type="text" value=""/></td>--%>
         </tr>
         <tr>
             <td><form:label path="dictionary"/>Dictionary</td>
             <td><form:select path="dictionary">
+                <option selected disabled>Choose dictionary</option>
                 <c:forEach items="${dictionaryList}" var="dictionary">
                     <form:option value="${dictionary.id}" label="${dictionary.name}"/>
                 </c:forEach>
             </form:select></td>
+            <td><form:errors path="dictionary" cssClass="ui-state-error"/></td>
         </tr>
         <tr>
             <td colspan="2">

@@ -3,7 +3,8 @@ $(document).ready(function () {
         event.preventDefault();
         var id = $('#chooseTranslation').val()
         console.log(id)
-        var origin = $("#origin-value").val();
+        var origin = $("#originValue").val();
+        console.log(origin)
         // var trans = $("#chooseTranslation").val()
 
         $.ajax({

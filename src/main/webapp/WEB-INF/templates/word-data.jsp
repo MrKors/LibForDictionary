@@ -38,8 +38,8 @@
     </tr>
     <tr>
     <tr>
-        <th>Edit word:</th>
-        <td><a href="/words/edit/${word.originValue}">Edit</a></td>
+        <th>Add translation:</th>
+        <td><a href="/words/addTranslation/${word.originValue}">Add</a></td>
     </tr>
     <tr>
         <th>Delete word:</th>
@@ -47,6 +47,10 @@
     </tr>
 
 </table>
+
+<div>
+    <a href="../../index.jsp">Back to main page</a>
+</div>
 
 </body>
 </html>

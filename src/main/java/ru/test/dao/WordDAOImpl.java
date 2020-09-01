@@ -21,7 +21,7 @@ public class WordDAOImpl implements WordDAO{
     @Override
     public void addWord(Word word) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(word);
+        session.saveOrUpdate(word);
     }
 
     @Override

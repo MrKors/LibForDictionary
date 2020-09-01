@@ -16,17 +16,17 @@
 </head>
 <body>
 <div>
-    <a href="../../index.jsp">Back to index</a>
+    <a href="../../index.jsp">Back to main page</a>
 </div>
 
 <div>
     <h1>Words list</h1>
 </div>
 
-
 <div>
     <form:form action="/word-data" method="post">
         <div>
+            <label for="filterDictionary">Dictionary for search: </label>
             <select id="filterDictionary" name="filterDictionary">
                 <option disabled selected>Choose dictionary</option>
                 <c:forEach items="${dictionaryList}" var="dictionaryName">
@@ -48,15 +48,19 @@
     <c:if test="${!empty wordsList}">
         <table border="1" cellspacing="1" cellpadding="2">
             <tr>
-                <th>Origin Value</th>
-                <th>Translation</th>
-                <th>Edit/Delete translation</th>
-                <th>Dictionary</th>
-                <th colspan="2">Actions</th>
+                <th rowspan="2">Origin Value</th>
+                <th rowspan="2">Translation</th>
+                <th colspan="2">Action for translation</th>
+                <th rowspan="2">Dictionary</th>
+                <th rowspan="2">Delete word</th>
+            </tr>
+            <tr>
+                <th>Edit/Delete</th>
+                <th>Add</th>
             </tr>
             <c:forEach items="${wordsList}" var="word">
                 <tr>
-                    <td>${word.originValue}</td>
+                    <td><a href="/word-data/${word.originValue}">${word.originValue}</a></td>
                     <td>
                         <c:if test="${!empty word.translationList}">
                             <select><c:forEach items="${word.translationList}" var="translation">
@@ -70,8 +74,8 @@
                             <a href="/words/editTranslation/${word.originValue}">Edit/Delete</a>
                         </c:if>
                     </td>
+                    <td><a href="/words/addTranslation/${word.originValue}">Add</a></td>
                     <td>${word.dictionary.name}</td>
-                    <td><a href="/words/edit/${word.originValue}">Edit</a></td>
                     <td><a href="/words/delete/${word.originValue}">Delete</a></td>
                 </tr>
             </c:forEach>
@@ -80,7 +84,7 @@
 </div>
 
 <div>
-    <p><a href="<c:url value="/add-word"/>">Add</a> word to dictionary</p>
+    <p><a href="<c:url value="/addWord"/>">Add</a> word to dictionary</p>
 </div>
 
 

@@ -74,10 +74,15 @@ public class WordController {
                 wordService.addWord(word);
                 translationService.addTranslation(new Translation(wordDto.getTranslation(), wordService.findByKey(wordDto.getOriginValue())));
             }
+            else {
+                bindingResult.rejectValue("originValue", "", "Does not meet the requirements dictionary");
+            }
+        }
+
+        if (!bindingResult.hasErrors()){
             return "redirect:/words-list";
         }
-        else
-        {
+        else {
             return "/add-word";
         }
     }

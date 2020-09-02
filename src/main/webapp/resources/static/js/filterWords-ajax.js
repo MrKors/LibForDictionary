@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#filterDictionary').on('change', function () {
         var id = $(this).val();
-        console.log(id);
+        // console.log(id);
 
         $.ajax({
             url: "/words-list/filter",
@@ -9,9 +9,9 @@ $(document).ready(function () {
             data: {id},
             success: function (data) {
                 let parser = new DOMParser().parseFromString(data, "text/html")
-                console.log(parser)
+                // console.log(parser)
                 let table = parser.getElementById('div-table')
-                console.log(table)
+                // console.log(table)
                 $('#div-table').html(table);
             }
         })

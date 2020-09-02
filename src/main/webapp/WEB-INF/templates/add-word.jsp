@@ -42,5 +42,10 @@
         </tr>
     </table>
 </form:form>
+
+<div>
+    <a href="../../index.jsp">Back to main page</a>
+</div>
+
 </body>
 </html>

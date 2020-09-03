@@ -6,6 +6,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css"/>
+
     <title>Add words</title>
 </head>
 <body>
@@ -16,12 +18,12 @@
         <tr>
             <td><form:label path="originValue">Origin Value</form:label></td>
             <td><form:input path="originValue"/></td>
-            <td><form:errors path="originValue" cssClass="error"/> </td>
+            <td><form:errors path="originValue" cssClass="ui-state-error"/> </td>
         </tr>
         <tr>
             <td><form:label path="translation">Translation</form:label></td>
             <td><form:input path="translation"/></td>
-            <td><form:errors path="translation" cssClass="error"/></td>
+            <td><form:errors path="translation" cssClass="ui-state-error"/></td>
 <%--            <td><label for="translation">Translation</label></td>--%>
 <%--            <td><input id="translation" name="translation" type="text" value=""/></td>--%>
         </tr>

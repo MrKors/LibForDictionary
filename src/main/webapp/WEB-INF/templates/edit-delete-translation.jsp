@@ -6,10 +6,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edit translation</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/resources/static/js/changeText.js"></script>
     <script src="/resources/static/js/deleteTranslation-ajax.js"></script>
+
+    <title>Edit translation</title>
 </head>
 <body>
 
@@ -37,7 +39,7 @@
         <tr>
             <td><form:label path="translation">Translation</form:label></td>
             <td><form:input path="translation" id="editTranslation"/></td>
-            <td><form:errors path="translation"/></td>
+            <td><form:errors path="translation" cssClass="ui-state-error"/></td>
                 <%--            <td><label for="editTranslation">Edit translation</label></td>--%>
                 <%--            <td><input id="editTranslation" name="newTranslation" type="text" value=""/></td>--%>
         </tr>
